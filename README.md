@@ -2,7 +2,7 @@
 
 Single-page React site for a private **24-player, 48-team** sweepstake: two random nations per entrant, **£180** prize pot, and an honours board driven by JSON in the repo.
 
-Stack: **Vite**, **React 19**, **TypeScript**, **Tailwind CSS v4** (via `@tailwindcss/vite`).
+Stack: **Vite**, **React 19**, **TypeScript**, **Tailwind CSS v4** (via `@tailwindcss/vite`)
 
 ## Local development
 
