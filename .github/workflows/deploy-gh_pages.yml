@@ -39,9 +39,21 @@ jobs:
           VITE_BASE_URL: /${{ github.event.repository.name }}/
         run: npm run build
 
+      # Push dist/ with git so we do not depend on fetching a third-party action tarball from codeload.
       - name: Deploy to gh_pages branch
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          publish_branch: gh_pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          cd dist
+          git init -b gh_pages
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git add .
+          if git diff --staged --quiet; then
+            echo "No changes in dist; skipping push."
+            exit 0
+          fi
+          git commit -m "Deploy ${{ github.sha }}"
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
+          git push --force origin gh_pages
