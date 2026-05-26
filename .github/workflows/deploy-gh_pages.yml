@@ -1,0 +1,46 @@
+# Build the Vite app and push `dist/` to the `gh_pages` branch.
+# GitHub Pages: Settings → Pages → Source = branch `gh_pages` / folder `/ (root)`.
+# Does not run on pushes to `gh_pages` (that branch is build output only).
+
+name: Deploy to gh_pages branch
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy-gh-pages
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        env:
+          # Project pages are served under /<repo>/; see README for user.github.io repos.
+          VITE_BASE_URL: /${{ github.event.repository.name }}/
+        run: npm run build
+
+      - name: Deploy to gh_pages branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: gh_pages
