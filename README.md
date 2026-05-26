@@ -45,7 +45,8 @@ The site is **not** served from `main` (that tree still has dev `index.html` →
 2. **Trigger a deploy** (the workflow does **not** run when you push to `gh_pages` — that branch is only the build output):
    - Push or merge to **`main`** (or **`master`** if that is your default branch), **or**
    - **Actions → Deploy to gh_pages branch → Run workflow** (manual run uses the selected branch’s files — pick **`main`**).
-   Workflow: [`.github/workflows/deploy-gh_pages.yml`](.github/workflows/deploy-gh_pages.yml) — `npm ci`, `npm run build`, then push **`dist/`** to **`gh_pages`**.
+   Workflow: [`.github/workflows/deploy-gh_pages.yml`](.github/workflows/deploy-gh_pages.yml) — `npm ci`, `npm run build`, then push **`dist/`** to **`gh_pages`** from the same clone `actions/checkout` configures (so `GITHUB_TOKEN` can write).
+3. **If the deploy step fails with HTTP 403** on `git push`: **Settings → Actions → General → Workflow permissions** → choose **Read and write permissions** and save. Some repositories default to read-only tokens; the workflow already requests `contents: write`, but the repo must allow workflows to receive write access.
 
 ### Open the right URL
 

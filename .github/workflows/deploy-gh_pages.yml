@@ -1,6 +1,12 @@
 # Build the Vite app and push `dist/` to the `gh_pages` branch.
 # GitHub Pages: Settings → Pages → Source = branch `gh_pages` / folder `/ (root)`.
 # Does not run on pushes to `gh_pages` (that branch is build output only).
+#
+# Deploy uses the same git clone as actions/checkout (credential helper). A separate
+# `git init` under dist/ pushes without that auth and often gets HTTP 403.
+#
+# If push still returns 403: Settings → Actions → General → Workflow permissions →
+# "Read and write permissions" (org/repo may default to read-only for GITHUB_TOKEN).
 
 name: Deploy to gh_pages branch
 
@@ -24,6 +30,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 1
 
       - uses: actions/setup-node@v4
         with:
@@ -39,21 +48,30 @@ jobs:
           VITE_BASE_URL: /${{ github.event.repository.name }}/
         run: npm run build
 
-      # Push dist/ with git so we do not depend on fetching a third-party action tarball from codeload.
       - name: Deploy to gh_pages branch
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
-          cd dist
-          git init -b gh_pages
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
-          git add .
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          mv dist /tmp/site-dist
+
+          git fetch origin gh_pages 2>/dev/null || true
+          if git rev-parse --verify refs/remotes/origin/gh_pages >/dev/null 2>&1; then
+            git checkout -B gh_pages origin/gh_pages
+          else
+            git checkout --orphan gh_pages
+            git rm -rf . >/dev/null 2>&1 || true
+          fi
+
+          find . -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
+          cp -a /tmp/site-dist/. .
+
+          git add -A
           if git diff --staged --quiet; then
-            echo "No changes in dist; skipping push."
+            echo "No changes; skipping push."
             exit 0
           fi
+
           git commit -m "Deploy ${{ github.sha }}"
-          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
-          git push --force origin gh_pages
+          git push origin HEAD:gh_pages --force
