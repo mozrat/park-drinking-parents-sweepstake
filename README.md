@@ -33,23 +33,52 @@ Add image files under **`public/avatars/`** and set `"avatar": "yourfile.webp"` 
 
 Flags load from `https://flagcdn.com` using each team’s `flagCode` (ISO-style codes, including `gb-eng` and `gb-sct` where needed).
 
-## GitHub Pages
+## GitHub Pages (`gh_pages` branch)
 
-1. In the repository **Settings → Pages**, set **Source** to **GitHub Actions**.
-2. Push to **`main`**. The workflow [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml) runs `npm ci`, `npm run build`, and publishes the `dist/` folder.
+The site is **not** served from `main` (that tree still has dev `index.html` → `/src/main.tsx`). Instead, a workflow builds **`dist/`** and pushes it to the **`gh_pages`** branch; GitHub Pages serves **that** branch.
 
-Assets use a base path of `/<repository-name>/`, set at build time via `VITE_BASE_URL`, so the app works on **project pages** (`https://<user>.github.io/<repo>/`).
+### One-time setup
 
-### User or organisation site (`*.github.io` repository)
+1. **Settings → Pages → Build and deployment**
+   - **Source**: **Deploy from a branch** (not “GitHub Actions”).
+   - **Branch**: **`gh_pages`** / **Folder**: **`/ (root)`**.
+2. Push to **`main`** (or run the workflow manually: **Actions → Deploy to gh_pages branch → Run workflow**).  
+   Workflow: [`.github/workflows/deploy-gh_pages.yml`](.github/workflows/deploy-gh_pages.yml) — `npm ci`, `npm run build`, then push **`dist/`** contents to **`gh_pages`** (force-orphan history so the branch only ever holds the built site).
 
-If this repository is named `<username>.github.io`, the site is served from the **root** `/`. Change the workflow build step to:
+### Open the right URL
+
+**Project pages:** `https://<username>.github.io/<repository-name>/`  
+(e.g. `https://mozrat.github.io/park-drinking-parents-sweepstake/`).
+
+**View source** on the live page: you should see `<script … src="…/assets/index-….js">`, never `main.tsx`.
+
+Assets use `/<repository-name>/` via `VITE_BASE_URL` in that workflow (matches project Pages).
+
+### User or organisation site (`<username>.github.io` repository)
+
+If this repo **is** the `<username>.github.io` site (served from `/`), change the **Build** step in [`.github/workflows/deploy-gh_pages.yml`](.github/workflows/deploy-gh_pages.yml) to:
 
 ```yaml
 env:
   VITE_BASE_URL: /
 ```
 
-(or remove `VITE_BASE_URL` entirely and rely on the default `/` in `vite.config.ts`).
+## Git over SSH (two GitHub accounts)
+
+This machine uses **`~/.ssh/config`** with two host aliases:
+
+| Host alias | Key file | Use for |
+|------------|----------|---------|
+| `github-personal` | `~/.ssh/id_ed25519` | First GitHub account |
+| `github-work` | `~/.ssh/id_ed25519_work` | Second GitHub account |
+
+**Remotes must use the alias**, not `github.com`, e.g. `git@github-personal:mozrat/park-drinking-parents-sweepstake.git`.
+
+1. Add **`~/.ssh/id_ed25519.pub`** to the first account (GitHub → **SSH and GPG keys** → New key).
+2. Add **`~/.ssh/id_ed25519_work.pub`** to the second account.
+3. If `mozrat` is the **work** account, run:  
+   `git remote set-url origin git@github-work:mozrat/park-drinking-parents-sweepstake.git`
+4. Test: `ssh -T git@github-personal` or `ssh -T git@github-work` — you should see `Hi <username>!`.
 
 ## Scripts
 

@@ -1,0 +1,51 @@
+# Builds the Vite site and pushes ./dist to the orphan branch `gh_pages`.
+# In repo Settings → Pages, choose “Deploy from a branch”: branch `gh_pages`, folder `/ (root)`.
+
+name: Deploy to gh_pages branch
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gh_pages_deploy
+  cancel-in-progress: true
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          # Project pages: https://<user>.github.io/<repo>/
+          VITE_BASE_URL: /${{ github.event.repository.name }}/
+
+      - name: Verify production bundle
+        run: |
+          if grep -q 'src/main.tsx' dist/index.html; then
+            echo "::error::dist/index.html still references dev entrypoint."
+            exit 1
+          fi
+          echo "OK: dist/index.html is a production bundle."
+
+      - name: Push dist to gh_pages branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: gh_pages
+          force_orphan: true
