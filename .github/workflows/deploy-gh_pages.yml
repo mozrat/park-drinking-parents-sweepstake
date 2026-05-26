@@ -1,11 +1,14 @@
-# Builds the Vite site and pushes ./dist to the orphan branch `gh_pages`.
-# In repo Settings → Pages, choose “Deploy from a branch”: branch `gh_pages`, folder `/ (root)`.
+# Builds the Vite site and pushes ./dist to branch `gh_pages`.
+# In repo Settings → Pages: “Deploy from a branch” → `gh_pages` / `/ (root)`.
+#
+# Runs on pushes to the DEFAULT SOURCE branch (main/master), NOT on pushes to `gh_pages`.
+# `gh_pages` only receives the built site from this job — push to `main` to deploy.
 
 name: Deploy to gh_pages branch
 
 on:
   push:
-    branches: [main]
+    branches: [main, master]
   workflow_dispatch:
 
 permissions:
