@@ -12,7 +12,6 @@ run-name: "Deploy gh_pages (${{ github.ref_name }})"
 on:
   push:
     branches: [main, master]
-  workflow_dispatch:
 
 permissions:
   contents: write
