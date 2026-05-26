@@ -1,0 +1,29 @@
+{
+  "entrants": [
+    {"id":"p01","displayName":"Simon Morris","avatar":null},
+    {"id":"p02","displayName":"Jessica Townsend","avatar":null},
+    {"id":"p03","displayName":"Harper Morris-Townsend","avatar":null},
+    {"id":"p04","displayName":"Gary Reeder","avatar":null},
+    {"id":"p05","displayName":"Ashleigh Reeder","avatar":null},
+    {"id":"p06","displayName":"Matilda Reeder","avatar":null},
+    {"id":"p07","displayName":"Adam Edwards","avatar":null},
+    {"id":"p08","displayName":"Maria Flores Edwards","avatar":null},
+    {"id":"p09","displayName":"Eva Flores Edwards","avatar":null},
+    {"id":"p10","displayName":"Angelina Trask","avatar":null},
+    {"id":"p11","displayName":"Josh Da Silva","avatar":null},
+    {"id":"p12","displayName":"Mia-Rose Da Silva","avatar":null},
+    {"id":"p13","displayName":"Carly Newman","avatar":null},
+    {"id":"p14","displayName":"Ian Newman","avatar":null},
+    {"id":"p15","displayName":"Ivy Newman","avatar":null},
+    {"id":"p16","displayName":"Dean","avatar":null},
+    {"id":"p17","displayName":"Ingrid","avatar":null},
+    {"id":"p18","displayName":"Alexander","avatar":null},
+    {"id":"p19","displayName":"Nat Black","avatar":null},
+    {"id":"p20","displayName":"John Baker","avatar":null},
+    {"id":"p21","displayName":"Ayla / Beau Baker","avatar":null},
+    {"id":"p22","displayName":"John Townsend","avatar":null},
+    {"id":"p23","displayName":"Loraine Townsend","avatar":null},
+    {"id":"p24","displayName":"Nick Townsend","avatar":null}
+  ],
+  "note": "Set displayName and optional avatar filename (place file in /public/avatars/). Avatar example: \"jane-doe.webp\""
+}

@@ -1,0 +1,25 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-display: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+  --color-pitch-950: #061a10;
+  --color-pitch-900: #0a2418;
+  --color-pitch-800: #0f3524;
+  --color-gold-400: #f5d547;
+  --color-gold-500: #e8bc2b;
+  --color-gold-600: #c99412;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-pitch-950 text-zinc-200 antialiased font-sans;
+    background-image:
+      radial-gradient(ellipse 120% 80% at 50% -20%, rgba(34, 197, 94, 0.18), transparent),
+      radial-gradient(ellipse 80% 50% at 100% 50%, rgba(232, 188, 43, 0.06), transparent),
+      radial-gradient(ellipse 60% 40% at 0% 80%, rgba(34, 197, 94, 0.08), transparent);
+  }
+}

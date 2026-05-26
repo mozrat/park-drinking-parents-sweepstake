@@ -1,0 +1,71 @@
+{
+  "currency": "GBP",
+  "currencySymbol": "£",
+  "potTotal": 180,
+  "description": "Prize pot split across tournament glory and side competitions.",
+  "items": [
+    {
+      "id": "champion",
+      "title": "Winner",
+      "subtitle": "Champion nation",
+      "amount": 72,
+      "percent": 40
+    },
+    {
+      "id": "runner_up",
+      "title": "Runner up",
+      "subtitle": "Second place",
+      "amount": 27,
+      "percent": 15
+    },
+    {
+      "id": "third_place",
+      "title": "Third place",
+      "subtitle": "Bronze",
+      "amount": 14.4,
+      "percent": 8
+    },
+    {
+      "id": "golden_boot",
+      "title": "Golden Boot",
+      "subtitle": "Top scorer",
+      "amount": 14.4,
+      "percent": 8
+    },
+    {
+      "id": "most_goals",
+      "title": "Most goals",
+      "subtitle": "Combined goals by your two nations",
+      "amount": 12.6,
+      "percent": 7
+    },
+    {
+      "id": "best_group_stage",
+      "title": "Best group stage",
+      "subtitle": "Best record while groups play",
+      "amount": 9,
+      "percent": 5
+    },
+    {
+      "id": "best_underdog",
+      "title": "Best underdog",
+      "subtitle": "Lowest-ranked nation that shines",
+      "amount": 12.6,
+      "percent": 7
+    },
+    {
+      "id": "highest_scoring_match",
+      "title": "Highest scoring group match",
+      "subtitle": "Shared if tied — group stage only",
+      "amount": 9,
+      "percent": 5
+    },
+    {
+      "id": "wooden_spoon",
+      "title": "Wooden Spoon",
+      "subtitle": "Last place among entrants",
+      "amount": 9,
+      "percent": 5
+    }
+  ]
+}

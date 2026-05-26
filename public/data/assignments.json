@@ -1,0 +1,30 @@
+{
+  "drawnAt": null,
+  "description": "Each entrant receives two nations at random. Fill teamIds with two team ids from teams.json after the draw.",
+  "assignments": [
+    {"entrantId":"p01","teamIds":[]},
+    {"entrantId":"p02","teamIds":[]},
+    {"entrantId":"p03","teamIds":[]},
+    {"entrantId":"p04","teamIds":[]},
+    {"entrantId":"p05","teamIds":[]},
+    {"entrantId":"p06","teamIds":[]},
+    {"entrantId":"p07","teamIds":[]},
+    {"entrantId":"p08","teamIds":[]},
+    {"entrantId":"p09","teamIds":[]},
+    {"entrantId":"p10","teamIds":[]},
+    {"entrantId":"p11","teamIds":[]},
+    {"entrantId":"p12","teamIds":[]},
+    {"entrantId":"p13","teamIds":[]},
+    {"entrantId":"p14","teamIds":[]},
+    {"entrantId":"p15","teamIds":[]},
+    {"entrantId":"p16","teamIds":[]},
+    {"entrantId":"p17","teamIds":[]},
+    {"entrantId":"p18","teamIds":[]},
+    {"entrantId":"p19","teamIds":[]},
+    {"entrantId":"p20","teamIds":[]},
+    {"entrantId":"p21","teamIds":[]},
+    {"entrantId":"p22","teamIds":[]},
+    {"entrantId":"p23","teamIds":[]},
+    {"entrantId":"p24","teamIds":[]}
+  ]
+}

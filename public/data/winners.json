@@ -1,0 +1,59 @@
+{
+  "updatedAt": null,
+  "description": "Record winners as the tournament progresses. entrantId references entrants.json; teamId references teams.json where relevant.",
+  "categories": [
+    {
+      "prizeId": "champion",
+      "entrantId": null,
+      "teamId": null,
+      "detail": null
+    },
+    {
+      "prizeId": "runner_up",
+      "entrantId": null,
+      "teamId": null,
+      "detail": null
+    },
+    {
+      "prizeId": "third_place",
+      "entrantId": null,
+      "teamId": null,
+      "detail": null
+    },
+    {
+      "prizeId": "golden_boot",
+      "entrantId": null,
+      "teamId": null,
+      "detail": null
+    },
+    {
+      "prizeId": "most_goals",
+      "entrantId": null,
+      "teamId": null,
+      "detail": null
+    },
+    {
+      "prizeId": "best_group_stage",
+      "entrantId": null,
+      "teamId": null,
+      "detail": null
+    },
+    {
+      "prizeId": "best_underdog",
+      "entrantId": null,
+      "teamId": null,
+      "detail": null
+    },
+    {
+      "prizeId": "highest_scoring_match",
+      "entrantIds": [],
+      "detail": "Match label, e.g. ENG 4–3 FRA — shared pot split across listed entrants"
+    },
+    {
+      "prizeId": "wooden_spoon",
+      "entrantId": null,
+      "teamId": null,
+      "detail": null
+    }
+  ]
+}
