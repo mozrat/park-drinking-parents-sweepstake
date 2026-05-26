@@ -42,8 +42,10 @@ The site is **not** served from `main` (that tree still has dev `index.html` →
 1. **Settings → Pages → Build and deployment**
    - **Source**: **Deploy from a branch** (not “GitHub Actions”).
    - **Branch**: **`gh_pages`** / **Folder**: **`/ (root)`**.
-2. Push to **`main`** (or run the workflow manually: **Actions → Deploy to gh_pages branch → Run workflow**).  
-   Workflow: [`.github/workflows/deploy-gh_pages.yml`](.github/workflows/deploy-gh_pages.yml) — `npm ci`, `npm run build`, then push **`dist/`** contents to **`gh_pages`** (force-orphan history so the branch only ever holds the built site).
+2. **Trigger a deploy** (the workflow does **not** run when you push to `gh_pages` — that branch is only the build output):
+   - Push or merge to **`main`** (or **`master`** if that is your default branch), **or**
+   - **Actions → Deploy to gh_pages branch → Run workflow** (manual run uses the selected branch’s files — pick **`main`**).
+   Workflow: [`.github/workflows/deploy-gh_pages.yml`](.github/workflows/deploy-gh_pages.yml) — `npm ci`, `npm run build`, then push **`dist/`** to **`gh_pages`**.
 
 ### Open the right URL
 
