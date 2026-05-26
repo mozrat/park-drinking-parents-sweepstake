@@ -4,7 +4,8 @@
 
 name: Deploy to gh_pages branch
 
-on:
+# Quote `on` — YAML 1.1 treats bare `on` as boolean true, which breaks push triggers.
+'on':
   push:
     branches:
       - main
